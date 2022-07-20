@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ja">
+    <meta charset="UTF-8">
+    <title>Miku-san utauyo AR</title>
+    <link href="./src/style.css" rel="stylesheet"></link>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/textalive-app-api/dist/index.js"></script>
+    <!-- A-frame ver1.3だとhtml2canvasが上手く動かない -->
+    <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="https://unpkg.com/aframe-html-shader@0.2.0/dist/aframe-html-shader.min.js"></script>    
+    <script src="https://unpkg.com/@pixiv/three-vrm@0.6.11/lib/three-vrm.js"></script>
+    <script src="./src/vrm-model-module.js"></script>
+</html>
+
+<body>
+
+    <div id="loading"><span>Loading...</span></div>
+    <div id="title" class="pixel">
+        <table>
+            <tbody>
+                <tr>
+                    <td style="width: 2em;">
+                        <button id="playBt">▶</button>
+                    </td>
+                    <td>
+                        <p id="songArtist">　</p>
+                        <p id="songTitle">　</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <label>大きさ<input type="range" id="adjustSize"  min="0.1" max="5" value="1" step="0.1"></label>
+    </div>
+    <div id="lyricsCanvas" class="target">
+    </div>
+        <a-scene embedded arjs vr-mode-ui="enabled: false">
+            <a-entity id="allModels">
+                <a-marker type="pattern" url="./marker/pattern-marker.patt">
+                    <!-- 画面表示 -->
+                    <!-- <a-plane position="0 0 0" width="4" height="4" color="azure" rotation="-90 0 0"></a-plane> -->
+                    <a-cylinder position="0 0 0" scale="1 0.2 1"rotation="0 0 0" color="#7BC8A4" radius="1" material="opacity: 0.85; blending: normal;"></a-cylinder>
+                    <a-entity rotation="0 0 -5">
+                        <a-cylinder id="lyricsEntity1" rotation="0 0 0" position="0 1.2 0" radius="1.27" geometry="openEnded: true; height: 1;" side="double" material="blending: additive; shader:html; target:#lyricsCanvas; ratio:null; fps:60; opacity: 0.75;" animation="property: rotation; from: 0 0 0; to: 0 -360 0; dur: 10000; easing: linear; loop: true;"></a-cylinder>
+                    </a-entity>
+                    <a-entity id="model" position="0 0.80 0" rotation="0 0 0" scale="1.58 1.58 1.58" vrm-model="vrmModel: https://daradaras.group/others/miku/models/mikusan.vrm;"></a-entity>
+                    <a-entity light="intensity: 0.7; castShadow: true" position="-1.36743 3.43993 -1.32133" data-aframe-default-light="" aframe-injected=""></a-entity>
+                </a-marker>
+            </a-entity>
+            <a-entity camera="far: 10000; fov: 50; zoom: 1" wasd-controls look-controls position="0 0.5 5" rotation="10 0 0" visible="" scale=""></a-entity>
+            
+        </a-scene>
+    <script src="./src/main_three_aframe.js"></script>
+</body>
