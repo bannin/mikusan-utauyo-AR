@@ -2,13 +2,11 @@ const { Player } = TextAliveApp;
 const token = "8JWGacd5r8DRBFfz";
 const defaultSong = "https://piapro.jp/t/RoPB/20220122172830";  // デフォルトはせきこみごはん氏Loading Memories
 
-// import * as THREE from "three";
-// import { GLTFLoader } from "gltf-loader";
-// import { VRM } from "three-vrm";
-
 const lyricsDOM = document.getElementById("lyricsCanvas");
 const bt = document.getElementById("playBt");
-const V_Color = [[187, 242, 187], [188, 139, 240]];   // 感情価(Valence)を色にマッピングしてみる
+const V_Color = [[187, 242, 187], [188, 139, 240]];         // 感情価(Valence)を色にマッピングしてみる
+const allHandler = document.getElementById("allModels");    // モデルが入ってるDOMのルート
+const mikusan = document.getElementById("model");           // ミクさんモデル
 
 // モデルが読み込み完了しているかどうか
 const vrmIsReady = function (_name){
@@ -67,7 +65,7 @@ player.addListener({
             }
             if (vowelIsChanged) {
                 const imaVowel = vowel.get().next;
-                if(imaVowel != "n")  document.getElementById("model").setAttribute("vrm-model", {shape: [`${vowel.get().next}`]});
+                if(imaVowel != "n")  mikusan.setAttribute("vrm-model", {shape: [`${vowel.get().next}`]});
             }
 
             // 歌詞の取得
@@ -104,7 +102,7 @@ player.addListener({
     onStop: () => {
         bt.textContent = "▶";
         // モデルアニメーションの準備
-        if(vrmIsReady("model"))  document.getElementById("model").setAttribute("vrm-model", {animation: ["waving", THREE.LoopPingPong]});
+        if(vrmIsReady("model"))  mikusan.setAttribute("vrm-model", {animation: ["waving", THREE.LoopPingPong]});
     }
 });
 
@@ -169,7 +167,7 @@ const playStop = (e) => {
     }
     else {
         // モデルアニメーションの準備
-        if(vrmIsReady("model"))  document.getElementById("model").setAttribute("vrm-model", {animation: ["singing", THREE.LoopPingPong]});
+        if(vrmIsReady("model"))  mikusan.setAttribute("vrm-model", {animation: ["singing", THREE.LoopPingPong]});
         player.requestPlay();
     }
 }
@@ -199,7 +197,12 @@ window.addEventListener("load", () => {
     // ステージのサイズ調整
     document.getElementById("adjustSize").addEventListener("input", e => {
         const size = e.target.value;
-        document.getElementById("allModels").setAttribute("scale", `${size} ${size} ${size}`);
+        allHandler.setAttribute("scale", `${size} ${size} ${size}`);
+    });
+    // 縦回転モード
+    document.getElementById("tateroll").addEventListener("change", e => {
+        if(e.target.checked)  allHandler.setAttribute("rotation", "-90 0 0");
+        else  allHandler.setAttribute("rotation", "0 0 0");
     });
     document.querySelector("a-scene").renderer.gammaOutput=true;
 });

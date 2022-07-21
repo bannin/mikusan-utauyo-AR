@@ -14,7 +14,6 @@
 </html>
 
 <body>
-
     <div id="loading"><span>Loading...</span></div>
     <div id="title" class="pixel">
         <table>
@@ -30,13 +29,16 @@
                 </tr>
             </tbody>
         </table>
-        <label>大きさ<input type="range" id="adjustSize"  min="0.1" max="5" value="1" step="0.1"></label>
+        <p><label>大きさ<input type="range" id="adjustSize"  min="0.1" max="5" value="1" step="0.1"></label></p>
+        <p><label><input type="checkbox" id="tateroll">マーカーを縦に置く</label></p>
     </div>
+    <a id="kiyaku" href="https://developer.textalive.jp/terms/">TextAlive App API規約</a>
     <div id="lyricsCanvas" class="target">
     </div>
         <a-scene embedded arjs vr-mode-ui="enabled: false">
-            <a-entity id="allModels">
-                <a-marker type="pattern" url="./marker/pattern-marker.patt">
+            <a-marker type="pattern" url="./marker/pattern-marker.patt">
+                <a-entity id="allModels">
+                
                     <!-- 画面表示 -->
                     <!-- <a-plane position="0 0 0" width="4" height="4" color="azure" rotation="-90 0 0"></a-plane> -->
                     <a-cylinder position="0 0 0" scale="1 0.2 1"rotation="0 0 0" color="#7BC8A4" radius="1" material="opacity: 0.85; blending: normal;"></a-cylinder>
@@ -45,10 +47,10 @@
                     </a-entity>
                     <a-entity id="model" position="0 0.80 0" rotation="0 0 0" scale="1.58 1.58 1.58" vrm-model="vrmModel: https://daradaras.group/others/miku/models/mikusan.vrm;"></a-entity>
                     <a-entity light="intensity: 0.7; castShadow: true" position="-1.36743 3.43993 -1.32133" data-aframe-default-light="" aframe-injected=""></a-entity>
-                </a-marker>
-            </a-entity>
+                
+                </a-entity>
+            </a-marker>
             <a-entity camera="far: 10000; fov: 50; zoom: 1" wasd-controls look-controls position="0 0.5 5" rotation="10 0 0" visible="" scale=""></a-entity>
-            
         </a-scene>
     <script src="./src/main_three_aframe.js"></script>
 </body>
