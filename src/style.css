@@ -18,6 +18,15 @@ body{
     color:azure;
     z-index: 101;
 }
+#DL{
+    position:absolute;
+    top:0%;
+    right:0%;
+    font-weight: bold;
+    background-color: black;
+    color:azure;
+    z-index: 102;
+}
 #loading{
     position: absolute;
     width: 100%;
